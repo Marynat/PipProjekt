@@ -144,7 +144,7 @@ public class Rejestracja {
 			user.setImie(txtImie.getText());
 			user.setHaslo(pwdHaslo.getPassword());
 			user.setNazwaU(textField.getText());
-			user.set
+			user.setEMail(textField_1.getText());
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
