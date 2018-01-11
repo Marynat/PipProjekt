@@ -33,4 +33,14 @@ public class Zamowienie {
         // TODO implement here
     }
 
+	public Integer getIdZamowienia() {
+		return idZamowienia;
+	}
+
+	public void setIdZamowienia(Integer idZamowienia) {
+		this.idZamowienia = idZamowienia;
+	}
+    
+    
+
 }
