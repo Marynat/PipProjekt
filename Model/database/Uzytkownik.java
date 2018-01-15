@@ -19,8 +19,8 @@ public class Uzytkownik {
 		return haslo;
 	}
 
-	public void setHaslo(String string) {
-		this.haslo = string.toCharArray();
+	public void setHaslo(char[] haslo) {
+		this.haslo = haslo;
 	}
 	
 	public Typ getTyp() {
@@ -37,6 +37,14 @@ public class Uzytkownik {
 
 	public void setImie(String imie) {
 		this.imie = imie;
+	}
+	
+	public String getEMail() {
+		return eMail;
+	}
+
+	public void setEMail(String eMail) {
+		this.eMail = eMail;
 	}
 
 	public Integer getId() {
@@ -99,6 +107,11 @@ public class Uzytkownik {
      * 
      */
     protected Typ typ;
+    
+    /**
+     * 
+     */
+    protected String eMail;
 
 	/**
      * 

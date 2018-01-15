@@ -37,4 +37,30 @@ public class Farmaceuta extends Uzytkownik {
         return null;
     }
 
+	public Integer getWynagrodzenie() {
+		return wynagrodzenie;
+	}
+
+	public void setWynagrodzenie(Integer wynagrodzenie) {
+		this.wynagrodzenie = wynagrodzenie;
+	}
+
+	public Date getCzasRozpoczecia() {
+		return czasRozpoczecia;
+	}
+
+	public void setCzasRozpoczecia(Date czasRozpoczecia) {
+		this.czasRozpoczecia = czasRozpoczecia;
+	}
+
+	public Date getCzasZakonczenia() {
+		return czasZakonczenia;
+	}
+
+	public void setCzasZakonczenia(Date czasZakonczenia) {
+		this.czasZakonczenia = czasZakonczenia;
+	}
+    
+    
+
 }

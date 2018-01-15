@@ -54,5 +54,6 @@ public class Kierownik extends Uzytkownik {
     public void zlozZamowienie(Zamowienie zamowienie) {
         // TODO implement here
     }
-
+    
+    
 }

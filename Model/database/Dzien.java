@@ -31,4 +31,20 @@ public class Dzien {
         // TODO implement here
     }
 
+	public Float getPieniadze() {
+		return pieniadze;
+	}
+
+	public void setPieniadze(Float pieniadze) {
+		this.pieniadze = pieniadze;
+	}
+
+	public Integer getIloscSprzedanychProduktow() {
+		return iloscSprzedanychProduktow;
+	}
+
+	public void setIloscSprzedanychProduktow(Integer iloscSprzedanychProduktow) {
+		this.iloscSprzedanychProduktow = iloscSprzedanychProduktow;
+	}
+    
 }

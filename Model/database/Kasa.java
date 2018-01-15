@@ -63,4 +63,37 @@ public class Kasa extends Apteka {
         return null;
     }
 
+	public Boolean getStanKasy() {
+		return stanKasy;
+	}
+
+	public void setStanKasy(Boolean stanKasy) {
+		this.stanKasy = stanKasy;
+	}
+
+	public Float getPieniadze() {
+		return pieniadze;
+	}
+
+	public void setPieniadze(Float pieniadze) {
+		this.pieniadze = pieniadze;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public List getDzien() {
+		return dzien;
+	}
+
+	public void setDzien(List dzien) {
+		this.dzien = dzien;
+	}
+    
+    
 }

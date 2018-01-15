@@ -115,7 +115,8 @@ public class Logowanie {
 
 		public void actionPerformed(ActionEvent e) {
 			user.setNazwaU("jan");
-			user.setHaslo("tak");
+			char[] tak = {'t','a','k'};
+			user.setHaslo(tak);
 			login = user.getNazwaU();
 			user.setTyp(typ.KLIENT);
 			typ = user.getTyp();

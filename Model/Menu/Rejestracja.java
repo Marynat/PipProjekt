@@ -8,6 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import database.Uzytkownik;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
@@ -27,6 +30,7 @@ public class Rejestracja {
 	private JTextField textField;
 	private JButton btnMenuGlowne;
 	private final Action action_1 = new SwingAction_1();
+	private JTextField textField_1;
 
 	
 	public Rejestracja() {
@@ -68,27 +72,35 @@ public class Rejestracja {
 		
 		btnMenuGlowne = new JButton("Menu glowne");
 		btnMenuGlowne.setAction(action_1);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(btnZarejestruj)
+					.addPreferredGap(ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
+					.addComponent(btnMenuGlowne))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblWitamyWRejestracji)
 						.addComponent(lblPodajSwojeImie)
 						.addComponent(lblPodajSowjeNazwisko, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblPodajHaslo)
-						.addComponent(btnZarejestruj)
-						.addComponent(lblPodajNazweUzytkownia))
+						.addComponent(lblPodajNazweUzytkownia)
+						.addComponent(lblEmail))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(pwdHaslo)
-						.addComponent(txtNazwisko)
-						.addComponent(textField)
-						.addComponent(txtImie, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(251, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(495, Short.MAX_VALUE)
-					.addComponent(btnMenuGlowne))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(pwdHaslo)
+							.addComponent(txtNazwisko)
+							.addComponent(textField)
+							.addComponent(txtImie)))
+					.addContainerGap(147, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -110,21 +122,29 @@ public class Rejestracja {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPodajHaslo)
 						.addComponent(pwdHaslo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(btnZarejestruj)
-					.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-					.addComponent(btnMenuGlowne))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEmail)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnMenuGlowne)
+						.addComponent(btnZarejestruj)))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}
 	private class SwingAction extends AbstractAction {
+		private Uzytkownik user = new Uzytkownik();
 		public SwingAction() {
 			putValue(NAME, "Zarejestruj");
 			putValue(SHORT_DESCRIPTION, "Przesyla dane do bazy i umozliwia zalogowanie");
 		}
 		public void actionPerformed(ActionEvent e) {
-			
+			user.setImie(txtImie.getText());
+			user.setHaslo(pwdHaslo.getPassword());
+			user.setNazwaU(textField.getText());
+			user.setEMail(textField_1.getText());
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
