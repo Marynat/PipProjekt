@@ -100,10 +100,13 @@ public class KierownikMenu {
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "Menu Glowne");
+			putValue(SHORT_DESCRIPTION, "Powrot do glownego menu");
 		}
+
 		public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			GlowneMenu window = new GlowneMenu();
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {

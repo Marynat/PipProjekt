@@ -60,7 +60,7 @@ public class KlientMenu {
 		btnNewButton.setAction(action);
 		
 		txtTuWyswietliSi = new JTextArea();
-		txtTuWyswietliSi.setText("Tu wyswietli sie dostepnosc twojego leku\n podaj jego nazwe.");
+		txtTuWyswietliSi.setText("Tu wyswietli sie dostepnosc twojego leku\nPodaj jego nazwe.");
 		txtTuWyswietliSi.setColumns(10);
 		
 		JButton btnWyczyscPole = new JButton("Wyczysc Pole");
@@ -162,10 +162,12 @@ public class KlientMenu {
 					produkt.setId(rs.getInt(1));
 					produkt.setNazwa(rs.getString(2));
 					produkt.setIlosc(rs.getInt(3));
-					if(lines[0].equals(produkt.getNazwa()) && produkt.getIlosc()>0 && produkt.getIlosc()>Integer.parseInt(lines[1])) {
-						txtTuWyswietliSi.setText("Lek "+ produkt.getNazwa() + " jest dostepny w ilosci: " + produkt.getIlosc()+"\n");
+					if(lines[0].equals(produkt.getNazwa()) && produkt.getIlosc()>0 && produkt.getIlosc()>=Integer.parseInt(lines[1])) {
 						produkt.setIlosc(produkt.getIlosc()-Integer.parseInt(lines[1]));
-						rs = st.executeQuery("update produkty set "+produkt.getIlosc() +" where id = "+ produkt.getId());
+						System.out.println("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa =' "+ produkt.getNazwa()+"'");
+						rs = st.executeQuery("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa = '"+ produkt.getNazwa()+"'");
+						txtTuWyswietliSi.setText("Zamowiles "+ produkt.getNazwa() + "  w ilosci: "+ Integer.parseInt(lines[1]) +"\nPozosta³o:" + produkt.getIlosc()+"\n");
+						break;
 					}
 				}
 				

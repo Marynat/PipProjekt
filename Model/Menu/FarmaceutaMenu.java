@@ -70,10 +70,13 @@ public class FarmaceutaMenu {
 	}
 	private class SwingAction_1 extends AbstractAction {
 		public SwingAction_1() {
-			putValue(NAME, "SwingAction_1");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "Menu Glowne");
+			putValue(SHORT_DESCRIPTION, "Powrot do glownego menu");
 		}
+
 		public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			GlowneMenu window = new GlowneMenu();
 		}
 	}
 }
