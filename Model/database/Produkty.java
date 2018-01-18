@@ -32,6 +32,16 @@ public class Produkty extends Magazyn {
      * 
      */
     public Integer id;
+    
+    public int ilosc;
+
+	public int getIlosc() {
+		return ilosc;
+	}
+
+	public void setIlosc(int ilosc) {
+		this.ilosc = ilosc;
+	}
 
 	public String getNazwa() {
 		return nazwa;

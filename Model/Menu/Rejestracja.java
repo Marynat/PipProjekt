@@ -30,7 +30,6 @@ public class Rejestracja {
 	private JTextField textField;
 	private JButton btnMenuGlowne;
 	private final Action action_1 = new SwingAction_1();
-	private JTextField textField_1;
 	private JTextField txtWiek;
 
 	
@@ -74,11 +73,6 @@ public class Rejestracja {
 		btnMenuGlowne = new JButton("Menu glowne");
 		btnMenuGlowne.setAction(action_1);
 		
-		JLabel lblEmail = new JLabel("Email:");
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		
 		txtWiek = new JTextField();
 		txtWiek.setColumns(10);
 		
@@ -91,23 +85,24 @@ public class Rejestracja {
 					.addPreferredGap(ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
 					.addComponent(btnMenuGlowne))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblWitamyWRejestracji)
-						.addComponent(lblPodajSwojeImie)
-						.addComponent(lblPodajSowjeNazwisko, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPodajHaslo)
-						.addComponent(lblPodajNazweUzytkownia)
-						.addComponent(lblEmail)
-						.addComponent(lblWiek))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(pwdHaslo)
-							.addComponent(txtNazwisko)
-							.addComponent(textField)
-							.addComponent(txtImie)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(lblWiek)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblWitamyWRejestracji)
+								.addComponent(lblPodajSwojeImie)
+								.addComponent(lblPodajSowjeNazwisko, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPodajHaslo)
+								.addComponent(lblPodajNazweUzytkownia))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(pwdHaslo)
+								.addComponent(txtNazwisko)
+								.addComponent(textField)
+								.addComponent(txtImie))))
 					.addContainerGap(271, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -131,17 +126,16 @@ public class Rejestracja {
 						.addComponent(lblPodajHaslo)
 						.addComponent(pwdHaslo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblEmail)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblWiek))
-					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnMenuGlowne)
-						.addComponent(btnZarejestruj)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblWiek)
+							.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnMenuGlowne)
+								.addComponent(btnZarejestruj)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);

@@ -70,35 +70,52 @@ public class Logowanie {
 		JButton btnGlowneMenu = new JButton("Glowne menu");
 		btnGlowneMenu.setAction(action_3);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(162).addComponent(lblProszSiZalogowa))
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblPodajNazweUzytkownika).addComponent(lblPodajHaslo))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
-				.addGap(171)).addGroup(groupLayout.createSequentialGroup().addComponent(btnZaloguj).addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup().addComponent(btnZapomnialemHaso).addGap(103)
-						.addComponent(btnGlowneMenu).addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-						.addComponent(btnNiePosiadamKonta)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addComponent(lblProszSiZalogowa).addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPodajNazweUzytkownika)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPodajHaslo).addComponent(
-						passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnZaloguj)
-				.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnZapomnialemHaso)
-						.addComponent(btnNiePosiadamKonta).addComponent(btnGlowneMenu))
-				.addGap(20)));
+							.addGap(162)
+							.addComponent(lblProszSiZalogowa))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPodajNazweUzytkownika)
+								.addComponent(lblPodajHaslo))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
+					.addGap(171))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(btnZaloguj)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(btnZapomnialemHaso)
+					.addGap(103)
+					.addComponent(btnGlowneMenu)
+					.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+					.addComponent(btnNiePosiadamKonta))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(lblProszSiZalogowa)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPodajNazweUzytkownika)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPodajHaslo)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnZaloguj)
+					.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnZapomnialemHaso)
+						.addComponent(btnGlowneMenu)
+						.addComponent(btnNiePosiadamKonta)))
+		);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}
