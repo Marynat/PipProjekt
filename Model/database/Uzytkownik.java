@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -7,7 +10,10 @@ import java.util.*;
  */
 public class Uzytkownik {
 
-    public String getNazwaU() {
+	public Statement st;
+	public ResultSet rs;
+
+	public String getNazwaU() {
 		return nazwaU;
 	}
 
@@ -22,7 +28,7 @@ public class Uzytkownik {
 	public void setHaslo(char[] haslo) {
 		this.haslo = haslo;
 	}
-	
+
 	public Typ getTyp() {
 		return typ;
 	}
@@ -37,14 +43,6 @@ public class Uzytkownik {
 
 	public void setImie(String imie) {
 		this.imie = imie;
-	}
-	
-	public String getEMail() {
-		return eMail;
-	}
-
-	public void setEMail(String eMail) {
-		this.eMail = eMail;
 	}
 
 	public Integer getId() {
@@ -71,77 +69,55 @@ public class Uzytkownik {
 		this.nazwisko = nazwisko;
 	}
 
-	public String getAdres() {
-		return adres;
-	}
-
-	public void setAdres(String adres) {
-		this.adres = adres;
-	}
-
-	public String getTelefon() {
-		return telefon;
-	}
-
-	public void setTelefon(String telefon) {
-		this.telefon = telefon;
+	/**
+	 * Default constructor
+	 */
+	public Uzytkownik() {
 	}
 
 	/**
-     * Default constructor
-     */
-    public Uzytkownik() {
-    }
-
-    /**
-     * 
-     */
-    protected String nazwaU;
-
-    /**
-     * 
-     */
-    protected char[] haslo;
-    
-    /**
-     * 
-     */
-    protected Typ typ;
-    
-    /**
-     * 
-     */
-    protected String eMail;
+	 * 
+	 */
+	protected String nazwaU;
 
 	/**
-     * 
-     */
-    protected String imie;
+	 * 
+	 */
+	protected char[] haslo;
 
-    /**
-     * 
-     */
-    public Integer id;
+	/**
+	 * 
+	 */
+	protected Typ typ;
 
-    /**
-     * 
-     */
-    protected Integer wiek;
+	/**
+	 * 
+	 */
 
-    /**
-     * 
-     */
-    protected String nazwisko;
+	protected String imie;
 
-    /**
-     * 
-     */
-    protected String adres;
+	/**
+	 * 
+	 */
+	public Integer id;
 
-    /**
-     * 
-     */
-    protected String telefon;
+	/**
+	 * 
+	 */
+	protected Integer wiek;
 
+	/**
+	 * 
+	 */
+	protected String nazwisko;
+
+	public void dodajUzytkownikaDB() throws Exception {
+		ConnectToDB.polacz();
+		String hasloDB = new String(this.haslo);
+		st = ConnectToDB.con.createStatement();
+		rs = st.executeQuery("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + this.id
+				+ "," + this.nazwaU + "," + hasloDB + ","+ this.imie + ","  + this.wiek + "," + this.nazwisko + ",NULL)");
+		ConnectToDB.rozlacz();
+	}
 
 }

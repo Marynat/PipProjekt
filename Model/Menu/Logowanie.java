@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import database.ConnectToDB;
 import database.Typ;
 import database.Uzytkownik;
 
@@ -16,6 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 
 import javax.swing.Action;
@@ -114,31 +117,48 @@ public class Logowanie {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			user.setNazwaU("jan");
-			char[] tak = {'t','a','k'};
-			user.setHaslo(tak);
-			login = user.getNazwaU();
-			user.setTyp(typ.KLIENT);
-			typ = user.getTyp();
-			input = passwordField.getPassword();
-			if (login.equals(textField.getText()) && isPasswordCorrect(input)) {
-				switch (typ) {
-				case KIEROWNIK:
-					frame.dispose();
-					KierownikMenu kierWindow = new KierownikMenu();
-					break;
-				case FARMACEUTA:
-					frame.dispose();
-					FarmaceutaMenu farWindow = new FarmaceutaMenu();
-					break;
-				case KLIENT:
-					frame.dispose();
-					KlientMenu kliWindow = new KlientMenu();
-					break;
-				default:
-					frame.dispose();
+			// user.setNazwaU("jan");
+			// char[] tak = {'t','a','k'};
+			// user.setHaslo(tak);
+			try {
+				ConnectToDB.polacz();
+
+				Statement st = ConnectToDB.con.createStatement();
+				ResultSet rs = st.executeQuery("Select nazwau, haslo, typ  from uzytkownik");
+				while (rs.next()) {
+					user.setNazwaU(rs.getString(1));
+					user.setHaslo(rs.getString(2).toCharArray());
+					user.setTyp(Typ.valueOf(rs.getString(3)));
+					login = user.getNazwaU();
+					typ = user.getTyp();
+					input = passwordField.getPassword();
+					String haslo = new String(input);
+					System.out.println(login + " " + haslo + " " + typ);
+					if (login.equals(textField.getText()) && isPasswordCorrect(input)) {
+						switch (typ) {
+						case KIEROWNIK:
+							frame.dispose();
+							KierownikMenu kierWindow = new KierownikMenu();
+							break;
+						case FARMACEUTA:
+							frame.dispose();
+							FarmaceutaMenu farWindow = new FarmaceutaMenu();
+							break;
+						case KLIENT:
+							frame.dispose();
+							KlientMenu kliWindow = new KlientMenu();
+						default:
+							frame.dispose();
+						}
+						break;
+					}
 				}
-			}else {
+				ConnectToDB.rozlacz();
+			} catch (Exception e1) {
+				System.out.println("checking user from database Exception");
+				e1.printStackTrace();
+			}
+			if (isPasswordCorrect(input)) {
 				Error error = new Error();
 			}
 		}

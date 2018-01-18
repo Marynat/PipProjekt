@@ -9,7 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import database.Uzytkownik;
+import database.*;
 
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -31,6 +31,7 @@ public class Rejestracja {
 	private JButton btnMenuGlowne;
 	private final Action action_1 = new SwingAction_1();
 	private JTextField textField_1;
+	private JTextField txtWiek;
 
 	
 	public Rejestracja() {
@@ -77,30 +78,37 @@ public class Rejestracja {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
+		
+		txtWiek = new JTextField();
+		txtWiek.setColumns(10);
+		
+		JLabel lblWiek = new JLabel("Wiek:");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(btnZarejestruj)
-					.addPreferredGap(ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
 					.addComponent(btnMenuGlowne))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblWitamyWRejestracji)
 						.addComponent(lblPodajSwojeImie)
 						.addComponent(lblPodajSowjeNazwisko, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblPodajHaslo)
 						.addComponent(lblPodajNazweUzytkownia)
-						.addComponent(lblEmail))
+						.addComponent(lblEmail)
+						.addComponent(lblWiek))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(pwdHaslo)
 							.addComponent(txtNazwisko)
 							.addComponent(textField)
 							.addComponent(txtImie)))
-					.addContainerGap(147, Short.MAX_VALUE))
+					.addContainerGap(271, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -126,7 +134,11 @@ public class Rejestracja {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
 						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtWiek, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblWiek))
+					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnMenuGlowne)
 						.addComponent(btnZarejestruj)))
@@ -135,16 +147,26 @@ public class Rejestracja {
 		frame.setVisible(true);
 	}
 	private class SwingAction extends AbstractAction {
-		private Uzytkownik user = new Uzytkownik();
+		private Klient klient = new Klient();
 		public SwingAction() {
 			putValue(NAME, "Zarejestruj");
 			putValue(SHORT_DESCRIPTION, "Przesyla dane do bazy i umozliwia zalogowanie");
 		}
 		public void actionPerformed(ActionEvent e) {
-			user.setImie(txtImie.getText());
-			user.setHaslo(pwdHaslo.getPassword());
-			user.setNazwaU(textField.getText());
-			user.setEMail(textField_1.getText());
+			klient.setImie(txtImie.getText());
+			klient.setHaslo(pwdHaslo.getPassword());
+			klient.setNazwaU(textField.getText());
+			klient.setNazwisko(txtNazwisko.getText());
+			klient.setTyp(Typ.KLIENT);
+			klient.setWiek(Integer.parseInt(txtWiek.getText()));
+			klient.setId_klient(0);
+			klient.setId(0);
+			try {
+				klient.dodajKlientaDoDB();
+			} catch (Exception e1) {
+				System.out.println("Adding klient to database Exception");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
