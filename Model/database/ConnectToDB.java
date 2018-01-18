@@ -14,7 +14,7 @@ public class ConnectToDB {
 		
 	public static void polacz() throws Exception {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "sid", "sid");
+		con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");
 	}
 	
 	public static void rozlacz() throws Exception {
