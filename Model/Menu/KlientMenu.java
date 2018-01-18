@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -27,7 +28,7 @@ public class KlientMenu {
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
-	private JTextField txtTuWyswietliSi;
+	private JTextArea txtTuWyswietliSi;
 	private final Action action_4 = new SwingAction_4();
 
 
@@ -58,8 +59,8 @@ public class KlientMenu {
 		JButton btnNewButton = new JButton("GlowneMenu");
 		btnNewButton.setAction(action);
 		
-		txtTuWyswietliSi = new JTextField();
-		txtTuWyswietliSi.setText("Tu wyswietli sie dostepnosc twojego leku, podaj jego nazwe.");
+		txtTuWyswietliSi = new JTextArea();
+		txtTuWyswietliSi.setText("Tu wyswietli sie dostepnosc twojego leku\n podaj jego nazwe.");
 		txtTuWyswietliSi.setColumns(10);
 		
 		JButton btnWyczyscPole = new JButton("Wyczysc Pole");
@@ -144,11 +145,35 @@ public class KlientMenu {
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
+		Produkty produkt = new Produkty();
 		public SwingAction_2() {
-			putValue(NAME, "SwingAction_2");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+		
+			putValue(NAME, "Zamow Leki");
+			putValue(SHORT_DESCRIPTION, "Tym przyciskiem mozesz zamowic leki");
 		}
+		@SuppressWarnings("resource")
 		public void actionPerformed(ActionEvent e) {
+			try {
+				String[] lines = txtTuWyswietliSi.getText().split(" ");
+				ConnectToDB.polacz();
+				Statement st = ConnectToDB.con.createStatement();
+				ResultSet rs = st.executeQuery("Select \"id_produkty\", nazwa, ilosc from produkty");
+				while (rs.next()) {
+					produkt.setId(rs.getInt(1));
+					produkt.setNazwa(rs.getString(2));
+					produkt.setIlosc(rs.getInt(3));
+					if(lines[0].equals(produkt.getNazwa()) && produkt.getIlosc()>0 && produkt.getIlosc()>Integer.parseInt(lines[1])) {
+						txtTuWyswietliSi.setText("Lek "+ produkt.getNazwa() + " jest dostepny w ilosci: " + produkt.getIlosc()+"\n");
+						produkt.setIlosc(produkt.getIlosc()-Integer.parseInt(lines[1]));
+						rs = st.executeQuery("update produkty set "+produkt.getIlosc() +" where id = "+ produkt.getId());
+					}
+				}
+				
+				ConnectToDB.rozlacz();
+			} catch (Exception e1) {
+				System.out.println("Exception w towrzeniu zamowienia.");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
