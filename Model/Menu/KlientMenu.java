@@ -30,6 +30,7 @@ public class KlientMenu {
 	private final Action action_3 = new SwingAction_3();
 	private JTextArea txtTuWyswietliSi;
 	private final Action action_4 = new SwingAction_4();
+	private JTextArea txtPodajNazweLeku;
 
 
 	public KlientMenu() {
@@ -42,7 +43,7 @@ public class KlientMenu {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
-		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 450, 300);
+		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 555, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblCoChceszZrobic = new JLabel("Co chcesz zrobic?");
@@ -65,37 +66,45 @@ public class KlientMenu {
 		
 		JButton btnWyczyscPole = new JButton("Wyczysc Pole");
 		btnWyczyscPole.setAction(action_4);
+		
+		txtPodajNazweLeku = new JTextArea();
+		txtPodajNazweLeku.setText("Podaj nazwe leku i po spacji ilosc");
+		txtPodajNazweLeku.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnSprawdzDostepnosc, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnZamowLeki, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnSprawdzDostepnosc, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
 						.addComponent(lblCoChceszZrobic)
+						.addComponent(btnZamowLeki, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
 						.addComponent(btnKupLeki, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+						.addComponent(txtPodajNazweLeku, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnWyczyscPole)
-							.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-							.addComponent(btnNewButton))
-						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+							.addComponent(btnNewButton))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(lblCoChceszZrobic)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnKupLeki)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnZamowLeki)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSprawdzDostepnosc))
-						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCoChceszZrobic)
+							.addGap(11)
+							.addComponent(btnKupLeki))
+						.addComponent(txtTuWyswietliSi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(txtPodajNazweLeku, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnZamowLeki))
+					.addGap(35)
+					.addComponent(btnSprawdzDostepnosc)
+					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnWyczyscPole)
 						.addComponent(btnNewButton)))
@@ -154,7 +163,7 @@ public class KlientMenu {
 		@SuppressWarnings("resource")
 		public void actionPerformed(ActionEvent e) {
 			try {
-				String[] lines = txtTuWyswietliSi.getText().split(" ");
+				String[] lines = txtPodajNazweLeku.getText().split(" ");
 				ConnectToDB.polacz();
 				Statement st = ConnectToDB.con.createStatement();
 				ResultSet rs = st.executeQuery("Select \"id_produkty\", nazwa, ilosc from produkty");
@@ -166,7 +175,7 @@ public class KlientMenu {
 						produkt.setIlosc(produkt.getIlosc()-Integer.parseInt(lines[1]));
 						System.out.println("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa =' "+ produkt.getNazwa()+"'");
 						rs = st.executeQuery("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa = '"+ produkt.getNazwa()+"'");
-						txtTuWyswietliSi.setText("Zamowiles "+ produkt.getNazwa() + "  w ilosci: "+ Integer.parseInt(lines[1]) +"\nPozosta³o:" + produkt.getIlosc()+"\n");
+						txtPodajNazweLeku.setText("Zamowiles "+ produkt.getNazwa() + "  w ilosci: "+ Integer.parseInt(lines[1]) +"\nPozosta³o:" + produkt.getIlosc()+"\n");
 						break;
 					}
 				}
@@ -193,6 +202,7 @@ public class KlientMenu {
 		}
 		public void actionPerformed(ActionEvent e) {
 			txtTuWyswietliSi.setText(null);
+			txtPodajNazweLeku.setText(null);
 		}
 	}
 }
