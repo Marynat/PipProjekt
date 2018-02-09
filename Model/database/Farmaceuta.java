@@ -1,5 +1,7 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -7,35 +9,50 @@ import java.util.*;
  */
 public class Farmaceuta extends Uzytkownik {
 
-    /**
-     * Default constructor
-     */
-    public Farmaceuta() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public Farmaceuta() {
+	}
 
-    /**
-     * 
-     */
-    public Integer wynagrodzenie;
+	/**
+	 * 
+	 */
+	public Integer wynagrodzenie;
 
-    /**
-     * 
-     */
-    public Date czasRozpoczecia;
+	/**
+	 * 
+	 */
+	public String kontoBankowe;
+	
+	
+	public String getKontoBankowe() {
+		return kontoBankowe;
+	}
 
-    /**
-     * 
-     */
-    public Date czasZakonczenia;
+	public void setKontoBankowe(String kontoBankowe) {
+		this.kontoBankowe = kontoBankowe;
+	}
 
-    /**
-     * @param Produkt id 
-     * @return
-     */
-    public Rachunki sprzedaj(Produkty id) {
-        // TODO implement here
-        return null;
-    }
+	private int id_farmaceuta;
+
+	/**
+	 * @param Produkt
+	 *            id
+	 * @return
+	 */
+	public Rachunki sprzedaj(Produkty id) {
+		// TODO implement here
+		return null;
+	}
+
+	public int getId_farmaceuta() {
+		return id_farmaceuta;
+	}
+
+	public void setId_farmaceuta(int id_farmaceuta) {
+		this.id_farmaceuta = id_farmaceuta;
+	}
 
 	public Integer getWynagrodzenie() {
 		return wynagrodzenie;
@@ -45,22 +62,31 @@ public class Farmaceuta extends Uzytkownik {
 		this.wynagrodzenie = wynagrodzenie;
 	}
 
-	public Date getCzasRozpoczecia() {
-		return czasRozpoczecia;
+
+	@Override
+	public void dodajUzytkownikaDB() throws Exception {
+		ConnectToDB.polacz(); 
+		
+		String hasloDB = new String(super.haslo);
+		st = ConnectToDB.con.createStatement();
+		setIdFromDB();
+		setFarmaceutaId();
+		System.out.println("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','" + super.typ +"')");
+		System.out.println("Insert into farmaceuta(id_farmaceuta,wynagrodzenie,konto_bankowe,uzytkownik_id_uzytkownik) values(" + getId_farmaceuta() + "," + getWynagrodzenie()+ ",'" + getKontoBankowe() + "'," + super.id + ")");
+		rs = st.executeQuery("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','"+ super.typ + "')");
+		rs = st.executeQuery("Insert into farmaceuta(id_farmaceuta,wynagrodzenie,konto_bankowe,uzytkownik_id_uzytkownik) values(" + getId_farmaceuta() + "," + getWynagrodzenie()+ ",'" + getKontoBankowe() + "'," + super.id + ")");
+
+		ConnectToDB.rozlacz();
 	}
 
-	public void setCzasRozpoczecia(Date czasRozpoczecia) {
-		this.czasRozpoczecia = czasRozpoczecia;
+	public void setFarmaceutaId() throws Exception {
+		
+		st = ConnectToDB.con.createStatement();
+		ResultSet rs2 = st.executeQuery("select * from farmaceuta");
+		while (rs2.next()) {
+			System.out.println("++");
+			this.id_farmaceuta++;
+		}
 	}
-
-	public Date getCzasZakonczenia() {
-		return czasZakonczenia;
-	}
-
-	public void setCzasZakonczenia(Date czasZakonczenia) {
-		this.czasZakonczenia = czasZakonczenia;
-	}
-    
-    
 
 }

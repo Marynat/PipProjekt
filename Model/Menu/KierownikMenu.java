@@ -9,8 +9,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import database.Farmaceuta;
+import database.Typ;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JTextArea;
+import javax.swing.JPasswordField;
 
 public class KierownikMenu {
 
@@ -22,6 +28,8 @@ public class KierownikMenu {
 	private final Action action_4 = new SwingAction_4();
 	private final Action action_5 = new SwingAction_5();
 	private final Action action_6 = new SwingAction_6();
+	private JTextArea txtrImie;
+	private JPasswordField passwordField;
 
 	public KierownikMenu() {
 		initialize();
@@ -33,7 +41,7 @@ public class KierownikMenu {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 456, 274);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnZatrudnij = new JButton("Zatrudnij");
@@ -60,39 +68,59 @@ public class KierownikMenu {
 		
 		JButton button = new JButton("GlowneMenu");
 		button.setAction(action);
+		
+		txtrImie = new JTextArea();
+		txtrImie.setToolTipText("Najedz na odpowiedni przycisk po wiecej informacji.");
+		
+		passwordField = new JPasswordField();
+		passwordField.setToolTipText("Haslo:");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnZatrudnij)
-						.addComponent(btnZwolnij)
-						.addComponent(btnStowrzNoweZamowienie)
-						.addComponent(btnUaktualnijdane)
-						.addComponent(btnOproznijKase)
-						.addComponent(btnPodsumuj))
-					.addContainerGap(281, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(337, Short.MAX_VALUE)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnPodsumuj, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+								.addComponent(btnOproznijKase, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(btnUaktualnijdane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnZwolnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnZatrudnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnStowrzNoweZamowienie, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
+							.addGap(46)
+							.addComponent(txtrImie, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap(333, Short.MAX_VALUE)
+							.addComponent(button, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap(180, Short.MAX_VALUE)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnZatrudnij)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnZwolnij)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnZatrudnij)
+							.addGap(3)
+							.addComponent(btnZwolnij)
+							.addGap(5)
+							.addComponent(btnStowrzNoweZamowienie)
+							.addGap(3)
+							.addComponent(btnUaktualnijdane)
+							.addGap(3)
+							.addComponent(btnOproznijKase)
+							.addGap(4)
+							.addComponent(btnPodsumuj))
+						.addComponent(txtrImie, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnStowrzNoweZamowienie)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnUaktualnijdane)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnOproznijKase)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnPodsumuj)
-					.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-					.addComponent(button))
+					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+					.addComponent(button)
+					.addContainerGap())
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		
@@ -110,32 +138,63 @@ public class KierownikMenu {
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
+		private Farmaceuta farm = new Farmaceuta();
 		public SwingAction_1() {
-			putValue(NAME, "SwingAction_1");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "Zatrudnij");
+			putValue(SHORT_DESCRIPTION, "Podaj wszystkie dane w odpowiedniej kolejnosci, Kolejnosc: Imie, Nazwisko, Nazwa, Wiek, Wynagrodzenie, Konto");
 		}
 		public void actionPerformed(ActionEvent e) {
+			String[] lines = txtrImie.getText().split("\n");
+			farm.setImie(lines[0]);
+			System.out.println(farm.getImie());
+			farm.setNazwisko(lines[1]);
+			System.out.println(farm.getNazwisko());
+			farm.setNazwaU(lines[2]);
+			System.out.println(farm.getNazwaU());
+			farm.setHaslo(passwordField.getPassword());
+			System.out.println(farm.getHaslo());
+			farm.setWiek(Integer.parseInt(lines[3]));
+			System.out.println(farm.getWiek());
+			try {
+				farm.setWynagrodzenie(Integer.parseInt(lines[4]));
+		   }catch (NumberFormatException e1){
+		       System.out.println("Not a number"); 
+		   } 
+			System.out.println(farm.getWynagrodzenie());
+			farm.setKontoBankowe(lines[5]);
+			System.out.println(farm.getKontoBankowe());
+			farm.setTyp(Typ.FARMACEUTA);
+			farm.setId_farmaceuta(0);
+			farm.setId(0);
+			try {
+				farm.dodajUzytkownikaDB();
+			} catch (Exception e1) {
+				System.out.println("Dodawanie farmaceuty do bazy danych");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
 		public SwingAction_2() {
-			putValue(NAME, "SwingAction_2");
+			putValue(NAME, "Zwolnij");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
+		
 		public SwingAction_3() {
-			putValue(NAME, "SwingAction_3");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "Zamow produkty");
+			putValue(SHORT_DESCRIPTION, "Tutaj dodasz farmaceute do listy pracownikow");
 		}
 		public void actionPerformed(ActionEvent e) {
+			
 		}
 	}
 	private class SwingAction_4 extends AbstractAction {
 		public SwingAction_4() {
-			putValue(NAME, "SwingAction_4");
+			putValue(NAME, "Uaktualnij dane");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -143,7 +202,7 @@ public class KierownikMenu {
 	}
 	private class SwingAction_5 extends AbstractAction {
 		public SwingAction_5() {
-			putValue(NAME, "SwingAction_5");
+			putValue(NAME, "Oproznij kase");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -151,7 +210,7 @@ public class KierownikMenu {
 	}
 	private class SwingAction_6 extends AbstractAction {
 		public SwingAction_6() {
-			putValue(NAME, "SwingAction_6");
+			putValue(NAME, "Podsumowanie");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {

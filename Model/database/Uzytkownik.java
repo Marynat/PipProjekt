@@ -119,5 +119,12 @@ public class Uzytkownik {
 				+ "," + this.nazwaU + "," + hasloDB + ","+ this.imie + ","  + this.wiek + "," + this.nazwisko + ",NULL)");
 		ConnectToDB.rozlacz();
 	}
+	public void setIdFromDB() throws Exception {
+		st = ConnectToDB.con.createStatement();
+		ResultSet rs2 = st.executeQuery("Select id_uzytkownik from uzytkownik");
+		while (rs2.next()) {
+			this.id++;
+		}
+	}
 
 }

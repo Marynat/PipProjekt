@@ -20,6 +20,10 @@ import java.sql.Statement;
 
 import javax.swing.Action;
 import javax.swing.JTextField;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
+import java.awt.Scrollbar;
 
 public class KlientMenu {
 
@@ -31,6 +35,7 @@ public class KlientMenu {
 	private JTextArea txtTuWyswietliSi;
 	private final Action action_4 = new SwingAction_4();
 	private JTextArea txtPodajNazweLeku;
+	private JTextArea txtrTuWyswietlaSie;
 
 
 	public KlientMenu() {
@@ -43,12 +48,12 @@ public class KlientMenu {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
-		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 555, 300);
+		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 560, 395);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblCoChceszZrobic = new JLabel("Co chcesz zrobic?");
 		
-		JButton btnKupLeki = new JButton("Kup leki");
+		JButton btnKupLeki = new JButton("Wswietl dostepne produkty");
 		btnKupLeki.setAction(action_1);
 		
 		JButton btnZamowLeki = new JButton("Zamow leki");
@@ -64,50 +69,62 @@ public class KlientMenu {
 		txtTuWyswietliSi.setText("Tu wyswietli sie dostepnosc twojego leku\nPodaj jego nazwe.");
 		txtTuWyswietliSi.setColumns(10);
 		
-		JButton btnWyczyscPole = new JButton("Wyczysc Pole");
+		JButton btnWyczyscPole = new JButton("Wyczysc Pola");
 		btnWyczyscPole.setAction(action_4);
 		
 		txtPodajNazweLeku = new JTextArea();
 		txtPodajNazweLeku.setText("Podaj nazwe leku i po spacji ilosc");
 		txtPodajNazweLeku.setColumns(10);
+		
+		txtrTuWyswietlaSie = new JTextArea();
+		JScrollPane scroll = new JScrollPane (txtrTuWyswietlaSie, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		txtrTuWyswietlaSie.setText("Tu wyswietla sie wszystkie dostepne produkty");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnSprawdzDostepnosc, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+						.addComponent(btnSprawdzDostepnosc, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
 						.addComponent(lblCoChceszZrobic)
-						.addComponent(btnZamowLeki, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-						.addComponent(btnKupLeki, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnZamowLeki, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+						.addComponent(btnKupLeki, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-						.addComponent(txtPodajNazweLeku, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+						.addComponent(txtPodajNazweLeku, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnWyczyscPole)
-							.addPreferredGap(ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
-							.addComponent(btnNewButton))))
+							.addPreferredGap(ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+							.addComponent(btnNewButton)
+							.addContainerGap())
+						.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCoChceszZrobic)
 							.addGap(11)
 							.addComponent(btnKupLeki))
-						.addComponent(txtTuWyswietliSi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
+						.addComponent(txtTuWyswietliSi, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(txtPodajNazweLeku, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnZamowLeki))
-					.addGap(35)
-					.addComponent(btnSprawdzDostepnosc)
-					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+						.addComponent(btnZamowLeki)
+						.addComponent(txtPodajNazweLeku, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(35)
+							.addComponent(btnSprawdzDostepnosc))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+					.addGap(103)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnWyczyscPole)
-						.addComponent(btnNewButton)))
+						.addComponent(btnNewButton))
+					.addContainerGap())
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		
@@ -188,21 +205,45 @@ public class KlientMenu {
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
+		Produkty produkt = new Produkty();
+		String textPola;
 		public SwingAction_3() {
-			putValue(NAME, "SwingAction_3");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "Wyswietl dostepne produkty");
+			putValue(SHORT_DESCRIPTION, "Pokaz wszystkie dostepne produkty");
 		}
 		public void actionPerformed(ActionEvent e) {
-		}
+			try {
+			textPola = "";
+			ConnectToDB.polacz();
+			Statement st = ConnectToDB.con.createStatement();
+			ResultSet rs = st.executeQuery("Select \"id_produkty\", nazwa, ilosc from produkty");
+			while (rs.next()) {
+				produkt.setId(rs.getInt(1));
+				produkt.setNazwa(rs.getString(2));
+				produkt.setIlosc(rs.getInt(3));
+				if(produkt.getIlosc() > 0) {
+					textPola += "Lek "+ produkt.getNazwa() + " jest dostepny w ilosci: " + produkt.getIlosc() + "\n";
+				}
+			}
+			txtrTuWyswietlaSie.setText(textPola);
+			
+			ConnectToDB.rozlacz();
+			}catch (Exception e1){
+				System.out.println("Exception w wyswietlaniu produktow.");
+				e1.printStackTrace();
+			}
+	}
+		
 	}
 	private class SwingAction_4 extends AbstractAction {
 		public SwingAction_4() {
-			putValue(NAME, "Wyczysc Pole");
-			putValue(SHORT_DESCRIPTION, "Tym przyciskiem wyczyscisz pole textowe");
+			putValue(NAME, "Wyczysc Pola");
+			putValue(SHORT_DESCRIPTION, "Tym przyciskiem wyczyscisz pola textowe");
 		}
 		public void actionPerformed(ActionEvent e) {
 			txtTuWyswietliSi.setText(null);
 			txtPodajNazweLeku.setText(null);
+			txtrTuWyswietlaSie.setText(null);
 		}
 	}
 }

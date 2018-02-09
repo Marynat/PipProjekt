@@ -156,7 +156,7 @@ public class Rejestracja {
 			klient.setId_klient(0);
 			klient.setId(0);
 			try {
-				klient.dodajKlientaDoDB();
+				klient.dodajUzytkownikaDB();
 			} catch (Exception e1) {
 				System.out.println("Adding klient to database Exception");
 				e1.printStackTrace();
