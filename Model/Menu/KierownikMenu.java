@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import database.Farmaceuta;
+import database.Kasa;
+import database.Kierownik;
 import database.Typ;
 
 import javax.swing.AbstractAction;
@@ -146,23 +148,16 @@ public class KierownikMenu {
 		public void actionPerformed(ActionEvent e) {
 			String[] lines = txtrImie.getText().split("\n");
 			farm.setImie(lines[0]);
-			System.out.println(farm.getImie());
 			farm.setNazwisko(lines[1]);
-			System.out.println(farm.getNazwisko());
 			farm.setNazwaU(lines[2]);
-			System.out.println(farm.getNazwaU());
 			farm.setHaslo(passwordField.getPassword());
-			System.out.println(farm.getHaslo());
 			farm.setWiek(Integer.parseInt(lines[3]));
-			System.out.println(farm.getWiek());
 			try {
 				farm.setWynagrodzenie(Integer.parseInt(lines[4]));
 		   }catch (NumberFormatException e1){
 		       System.out.println("Not a number"); 
 		   } 
-			System.out.println(farm.getWynagrodzenie());
 			farm.setKontoBankowe(lines[5]);
-			System.out.println(farm.getKontoBankowe());
 			farm.setTyp(Typ.FARMACEUTA);
 			farm.setId_farmaceuta(0);
 			farm.setId(0);
@@ -186,7 +181,7 @@ public class KierownikMenu {
 		
 		public SwingAction_3() {
 			putValue(NAME, "Zamow produkty");
-			putValue(SHORT_DESCRIPTION, "Tutaj dodasz farmaceute do listy pracownikow");
+			putValue(SHORT_DESCRIPTION, "Tutaj zamowisz produkty do magazynu");
 		}
 		public void actionPerformed(ActionEvent e) {
 			
@@ -201,11 +196,18 @@ public class KierownikMenu {
 		}
 	}
 	private class SwingAction_5 extends AbstractAction {
+		Kierownik kierownik = new Kierownik();
 		public SwingAction_5() {
 			putValue(NAME, "Oproznij kase");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
+			try {
+				kierownik.podsumowanie();
+			} catch (Exception e1) {
+				System.out.println("Blad w podsumowaniu");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_6 extends AbstractAction {

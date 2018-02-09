@@ -16,7 +16,9 @@ public class Rachunki extends Kasa {
     /**
      * 
      */
-    public Integer Seria;
+    public Integer seria;
+    
+    public Integer kwotaRachunku;
 
     /**
      * @param Produkty produkt

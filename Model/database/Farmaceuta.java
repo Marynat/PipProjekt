@@ -71,9 +71,9 @@ public class Farmaceuta extends Uzytkownik {
 		st = ConnectToDB.con.createStatement();
 		setIdFromDB();
 		setFarmaceutaId();
-		System.out.println("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','" + super.typ +"')");
+		System.out.println("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','" + super.typ +"',0)");
 		System.out.println("Insert into farmaceuta(id_farmaceuta,wynagrodzenie,konto_bankowe,uzytkownik_id_uzytkownik) values(" + getId_farmaceuta() + "," + getWynagrodzenie()+ ",'" + getKontoBankowe() + "'," + super.id + ")");
-		rs = st.executeQuery("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','"+ super.typ + "')");
+		rs = st.executeQuery("Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ,apteka_id_apteka) values(" + super.id + ",'" + super.nazwaU + "','" + hasloDB + "','" + super.imie + "',"  + super.wiek + ",'" + super.nazwisko + "','"+ super.typ + "',0)");
 		rs = st.executeQuery("Insert into farmaceuta(id_farmaceuta,wynagrodzenie,konto_bankowe,uzytkownik_id_uzytkownik) values(" + getId_farmaceuta() + "," + getWynagrodzenie()+ ",'" + getKontoBankowe() + "'," + super.id + ")");
 
 		ConnectToDB.rozlacz();
@@ -84,7 +84,6 @@ public class Farmaceuta extends Uzytkownik {
 		st = ConnectToDB.con.createStatement();
 		ResultSet rs2 = st.executeQuery("select * from farmaceuta");
 		while (rs2.next()) {
-			System.out.println("++");
 			this.id_farmaceuta++;
 		}
 	}

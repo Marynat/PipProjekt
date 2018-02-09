@@ -26,12 +26,12 @@ public class Kasa extends Apteka {
     /**
      * 
      */
-    public Date data;
+    public Date data = new Date();
 
     /**
      * 
      */
-    public List dzien;
+    public List<Dzien> dzien = new ArrayList<Dzien>();
 
 
     /**
@@ -39,9 +39,18 @@ public class Kasa extends Apteka {
      * @param dzien 
      * @return
      */
-    public Date otworzZamknijKase(Boolean stanKasy, List dzien) {
-        // TODO implement here
-        return null;
+    public Date otworzZamknijKase(Boolean stanKasy) {
+    	String str = "Kasa zostala ";
+        if(!stanKasy) {
+        	this.stanKasy = true;
+        	str += "Otwarta";
+        }else {
+        	this.stanKasy = false;
+        	str += "Zamknieta";
+        }
+        
+        System.out.println(str);
+        return data;
     }
 
     /**
@@ -49,9 +58,9 @@ public class Kasa extends Apteka {
      * @param kwotaRachunku 
      * @return
      */
-    public Integer zaplac(Integer kwotaOtrzymana, Integer kwotaRachunku) {
-        // TODO implement here
-        return null;
+    public void zaplac(Integer kwotaOtrzymana, Integer kwotaRachunku) {
+    	
+    	
     }
 
     /**
@@ -86,14 +95,5 @@ public class Kasa extends Apteka {
 	public void setData(Date data) {
 		this.data = data;
 	}
-
-	public List getDzien() {
-		return dzien;
-	}
-
-	public void setDzien(List dzien) {
-		this.dzien = dzien;
-	}
-    
     
 }

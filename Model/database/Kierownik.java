@@ -1,5 +1,7 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -21,10 +23,22 @@ public class Kierownik extends Uzytkownik {
     }
 
     /**
+     * @throws Exception 
      * 
      */
-    public void oproznijKase() {
-        // TODO implement here
+    public void podsumowanie() throws Exception {
+    	ConnectToDB.polacz();
+    	Kasa kasa = new Kasa();
+    	
+    	Statement st = ConnectToDB.con.createStatement();
+    	
+    	if(kasa.getStanKasy()) {
+    		ResultSet rs = st.executeQuery("insert into dzien");
+    		kasa.getPieniadze();
+    		kasa.setPieniadze(0.0f);
+    	}
+    	
+    	ConnectToDB.rozlacz();
     }
 
     /**

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import database.ConnectToDB;
+import database.Klient;
 import database.Produkty;
 import database.Typ;
 
@@ -171,37 +172,15 @@ public class KlientMenu {
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
-		Produkty produkt = new Produkty();
+		Klient klient = new Klient();
 		public SwingAction_2() {
 		
 			putValue(NAME, "Zamow Leki");
 			putValue(SHORT_DESCRIPTION, "Tym przyciskiem mozesz zamowic leki");
 		}
-		@SuppressWarnings("resource")
 		public void actionPerformed(ActionEvent e) {
-			try {
-				String[] lines = txtPodajNazweLeku.getText().split(" ");
-				ConnectToDB.polacz();
-				Statement st = ConnectToDB.con.createStatement();
-				ResultSet rs = st.executeQuery("Select \"id_produkty\", nazwa, ilosc from produkty");
-				while (rs.next()) {
-					produkt.setId(rs.getInt(1));
-					produkt.setNazwa(rs.getString(2));
-					produkt.setIlosc(rs.getInt(3));
-					if(lines[0].equals(produkt.getNazwa()) && produkt.getIlosc()>0 && produkt.getIlosc()>=Integer.parseInt(lines[1])) {
-						produkt.setIlosc(produkt.getIlosc()-Integer.parseInt(lines[1]));
-						System.out.println("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa =' "+ produkt.getNazwa()+"'");
-						rs = st.executeQuery("update produkty set ilosc ="+produkt.getIlosc() +" where nazwa = '"+ produkt.getNazwa()+"'");
-						txtPodajNazweLeku.setText("Zamowiles "+ produkt.getNazwa() + "  w ilosci: "+ Integer.parseInt(lines[1]) +"\nPozosta³o:" + produkt.getIlosc()+"\n");
-						break;
-					}
-				}
-				
-				ConnectToDB.rozlacz();
-			} catch (Exception e1) {
-				System.out.println("Exception w towrzeniu zamowienia.");
-				e1.printStackTrace();
-			}
+			String[] lines = txtPodajNazweLeku.getText().split(" ");
+			txtPodajNazweLeku.setText(klient.zamowLeki(lines));
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
