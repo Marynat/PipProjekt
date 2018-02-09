@@ -134,6 +134,7 @@ CREATE TABLE zamowienie (
     id_zamowienia          NUMBER(9) NOT NULL,
     rodzaj                 VARCHAR2(10),
     stan                   VARCHAR2(5),
+    ilosc                  NUMBER(6) ,
     klient_id_klient       NUMBER(9) ,
     produkty_id_produkty   NUMBER(9) NOT NULL
 )

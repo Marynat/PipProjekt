@@ -19,7 +19,7 @@ public class Zamowienie {
     /**
      * 
      */
-    public Integer idZamowienia;
+    public Integer idZamowienia = 0;
 
 
     /**
@@ -43,7 +43,7 @@ public class Zamowienie {
 	public void setIdZamowienia() throws Exception {
 		
 		Statement st = ConnectToDB.con.createStatement();
-		ResultSet rs2 = st.executeQuery("select * from farmaceuta");
+		ResultSet rs2 = st.executeQuery("select * from zamowienie");
 		while (rs2.next()) {
 			this.idZamowienia++;
 		}

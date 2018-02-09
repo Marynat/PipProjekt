@@ -12,6 +12,7 @@ select * from kierownik;
 select * from farmaceuta;
 select * from klient;
 select * from produkty;
+select * from zamowienie;
 --in
 --Instert into klient(id_klient,uzytkownik_id_uzytkownik) values(1,3)
 --DELETE FROM uzytkownik WHERE  id_uzytkownik =1;

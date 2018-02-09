@@ -172,7 +172,7 @@ public class KlientMenu {
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
-		Klient klient = new Klient();
+		Klient klient = new Klient(GlowneMenu.window2);
 		public SwingAction_2() {
 		
 			putValue(NAME, "Zamow Leki");

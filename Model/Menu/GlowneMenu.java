@@ -26,6 +26,7 @@ public class GlowneMenu {
 	public static Dimension screenSize;
 	public static Point center;
 	public static String title = "Aplikacja Apteki";
+	public static Logowanie window2;
 	/**
 	 * Create the application.
 	 */
@@ -55,7 +56,7 @@ public class GlowneMenu {
 		btnTak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Logowanie window2 = new Logowanie();
+				window2 = new Logowanie();
 			}
 		});
 		btnTak.setAction(action);

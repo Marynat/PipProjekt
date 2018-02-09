@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import database.ConnectToDB;
+import database.Klient;
 import database.Typ;
 import database.Uzytkownik;
 
@@ -32,6 +33,7 @@ public class Logowanie {
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
+	public final Uzytkownik user = new Uzytkownik();
 
 	public Logowanie() {
 		initialize();
@@ -126,7 +128,7 @@ public class Logowanie {
 		private Typ typ;
 		private char[] input;
 
-		final Uzytkownik user = new Uzytkownik();
+		
 
 		public SwingAction() {
 			putValue(NAME, "Zaloguj");
@@ -134,18 +136,17 @@ public class Logowanie {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			// user.setNazwaU("jan");
-			// char[] tak = {'t','a','k'};
-			// user.setHaslo(tak);
 			try {
 				ConnectToDB.polacz();
 
 				Statement st = ConnectToDB.con.createStatement();
-				ResultSet rs = st.executeQuery("Select nazwau, haslo, typ  from uzytkownik");
+				ResultSet rs = st.executeQuery("Select nazwau, haslo, typ, imie, nazwisko from uzytkownik");
 				while (rs.next()) {
 					user.setNazwaU(rs.getString(1));
 					user.setHaslo(rs.getString(2).toCharArray());
 					user.setTyp(Typ.valueOf(rs.getString(3)));
+					user.setImie(rs.getString(4));
+					user.setNazwisko(rs.getString(5));
 					login = user.getNazwaU();
 					typ = user.getTyp();
 					input = passwordField.getPassword();
