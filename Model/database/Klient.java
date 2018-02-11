@@ -115,8 +115,8 @@ public class Klient extends Uzytkownik {
 					produkt.setIlosc(produkt.getIlosc() - Integer.parseInt(lines[1]));
 					System.out.println("update produkty set ilosc =" + produkt.getIlosc() + " where nazwa =' "
 							+ produkt.getNazwa() + "'");
-					// rs = st.executeQuery("update produkty set ilosc ="+produkt.getIlosc() +"
-					// where nazwa = '"+ produkt.getNazwa()+"'");
+					rs = st.executeQuery("update produkty set ilosc =" + produkt.getIlosc() + "where nazwa = '"
+							+ produkt.getNazwa() + "'");
 					zamow.setIdZamowienia();
 					setCurrentKlientId();
 					System.out.println(
@@ -138,6 +138,46 @@ public class Klient extends Uzytkownik {
 			e1.printStackTrace();
 		}
 		return str;
+	}
+
+	public String wyswietlZamowienia() {
+		String zamowienia = "";
+		Zamowienie zam = new Zamowienie();
+		Produkty pro = new Produkty();
+
+		try {
+			ConnectToDB.polacz();
+			Statement st = ConnectToDB.con.createStatement();
+			setCurrentKlientId();
+			System.out.println(
+					"Select z.id_zamowienia, z.stan, z.ilosc, z.produkty_id_produkty, p.nazwa from zamowienie z, produkty p where z.produkty_id_produkty = \"id_produkty\" and klient_id_klient = "
+							+ getId_klient());
+			ResultSet rs = st.executeQuery(
+					"Select z.id_zamowienia, z.stan, z.ilosc, z.produkty_id_produkty, p.nazwa from zamowienie z, produkty p where z.produkty_id_produkty = \"id_produkty\" and klient_id_klient = "
+							+ getId_klient());
+			while (rs.next()) {
+				zam.setId(rs.getInt(1));
+				zam.setStan(rs.getString(2));
+				zam.setIlosc(rs.getInt(3));
+				zam.setIdProdukt(rs.getInt(4));
+				pro.setNazwa(rs.getString(5));
+				if (zam.getStan().equals("true")) {
+					zamowienia += "Zamowiles lek - " + pro.getNazwa() + " w ilosci: " + zam.getIlosc()
+							+ ". Zamowienie zostalo zrealizowane\n";
+				} else {
+					zamowienia += "Zamowiles lek - " + pro.getNazwa() + " w ilosci: " + zam.getIlosc()
+							+ ". Zamowienie nie zostalo jeszcze zrealizowane\n";
+				}
+			}
+			ConnectToDB.rozlacz();
+		} catch (
+
+		Exception e1) {
+			System.out.println("Exception w sprawdzaniu zamowien.");
+			e1.printStackTrace();
+		}
+
+		return zamowienia;
 	}
 
 }

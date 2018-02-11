@@ -25,6 +25,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import java.awt.Scrollbar;
+import java.awt.event.ActionListener;
 
 public class KlientMenu {
 
@@ -37,6 +38,7 @@ public class KlientMenu {
 	private final Action action_4 = new SwingAction_4();
 	private JTextArea txtPodajNazweLeku;
 	private JTextArea txtrTuWyswietlaSie;
+	private final Action action_5 = new SwingAction_5();
 
 
 	public KlientMenu() {
@@ -80,6 +82,13 @@ public class KlientMenu {
 		txtrTuWyswietlaSie = new JTextArea();
 		JScrollPane scroll = new JScrollPane (txtrTuWyswietlaSie, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		txtrTuWyswietlaSie.setText("Tu wyswietla sie wszystkie dostepne produkty");
+		
+		JButton btnNewButton_1 = new JButton("Wyswietl moje zamowienia");
+		btnNewButton_1.setAction(action_5);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -88,7 +97,8 @@ public class KlientMenu {
 						.addComponent(btnSprawdzDostepnosc, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
 						.addComponent(lblCoChceszZrobic)
 						.addComponent(btnZamowLeki, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-						.addComponent(btnKupLeki, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+						.addComponent(btnKupLeki, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+						.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(txtPodajNazweLeku, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
@@ -117,11 +127,13 @@ public class KlientMenu {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(35)
-							.addComponent(btnSprawdzDostepnosc))
+							.addComponent(btnSprawdzDostepnosc)
+							.addGap(32)
+							.addComponent(btnNewButton_1))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
-					.addGap(103)
+					.addGap(90)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnWyczyscPole)
 						.addComponent(btnNewButton))
@@ -223,6 +235,17 @@ public class KlientMenu {
 			txtTuWyswietliSi.setText(null);
 			txtPodajNazweLeku.setText(null);
 			txtrTuWyswietlaSie.setText(null);
+		}
+	}
+	private class SwingAction_5 extends AbstractAction {
+		Klient klient = new Klient(GlowneMenu.window2);
+		public SwingAction_5() {
+			putValue(NAME, "Wysietl moje zamowienia");
+			putValue(SHORT_DESCRIPTION, "Wyswietli wszystkie wykonane przez ciebie zamowienia");
+		}
+		public void actionPerformed(ActionEvent e) {
+			txtrTuWyswietlaSie.setText(null);
+			txtrTuWyswietlaSie.setText(klient.wyswietlZamowienia());
 		}
 	}
 }

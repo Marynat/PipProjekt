@@ -20,9 +20,49 @@ public class Zamowienie {
      * 
      */
     public Integer idZamowienia = 0;
+    
+    public String stan;
+    
+    public Integer ilosc;
+    
+    public Integer idKlient;
+    
+    public Integer idProdukt;
 
 
-    /**
+    public Integer getIlosc() {
+		return ilosc;
+	}
+
+	public void setIlosc(Integer ilosc) {
+		this.ilosc = ilosc;
+	}
+
+	public Integer getIdKlient() {
+		return idKlient;
+	}
+
+	public void setIdKlient(Integer idKlient) {
+		this.idKlient = idKlient;
+	}
+
+	public Integer getIdProdukt() {
+		return idProdukt;
+	}
+
+	public void setIdProdukt(Integer idProdukt) {
+		this.idProdukt = idProdukt;
+	}
+
+	public String getStan() {
+		return stan;
+	}
+
+	public void setStan(String stan) {
+		this.stan = stan;
+	}
+
+	/**
      * @param produkty
      */
     public void nowyProdukt(Produkty produkty) {
@@ -50,8 +90,8 @@ public class Zamowienie {
 	}
 	
 
-	public static void setId() {
-		
+	public void setId(int zam) {
+		this.idZamowienia = zam;
 		
 	}
     
