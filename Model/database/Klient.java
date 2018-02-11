@@ -97,7 +97,6 @@ public class Klient extends Uzytkownik {
 		}
 	}
 
-	@SuppressWarnings("resource")
 	public String zamowLeki(String[] lines) {
 		Produkty produkt = new Produkty();
 		Zamowienie zamow = new Zamowienie();
@@ -106,6 +105,7 @@ public class Klient extends Uzytkownik {
 			ConnectToDB.polacz();
 			Statement st = ConnectToDB.con.createStatement();
 			ResultSet rs = st.executeQuery("Select \"id_produkty\", nazwa, ilosc from produkty");
+			ResultSet rs2;
 			while (rs.next()) {
 				produkt.setId(rs.getInt(1));
 				produkt.setNazwa(rs.getString(2));
@@ -115,21 +115,23 @@ public class Klient extends Uzytkownik {
 					produkt.setIlosc(produkt.getIlosc() - Integer.parseInt(lines[1]));
 					System.out.println("update produkty set ilosc =" + produkt.getIlosc() + " where nazwa =' "
 							+ produkt.getNazwa() + "'");
-					rs = st.executeQuery("update produkty set ilosc =" + produkt.getIlosc() + "where nazwa = '"
+					rs2 = st.executeQuery("update produkty set ilosc =" + produkt.getIlosc() + "where nazwa = '"
 							+ produkt.getNazwa() + "'");
-					zamow.setIdZamowienia();
+					zamow.setCurrentId();
 					setCurrentKlientId();
 					System.out.println(
 							"insert into zamowienie(id_zamowienia,rodzaj,stan,ilosc,klient_id_klient,produkty_id_produkty) values("
-									+ zamow.getIdZamowienia() + ",'Z','false'," + Integer.parseInt(lines[1]) + ","
+									+ zamow.getIdZamowienia() + ",'KLIENT','false'," + Integer.parseInt(lines[1]) + ","
 									+ getId_klient() + "," + produkt.getId() + ")");
-					rs = st.executeQuery(
+					rs2 = st.executeQuery(
 							"insert into zamowienie(id_zamowienia,rodzaj,stan,ilosc,klient_id_klient,produkty_id_produkty) values("
-									+ zamow.getIdZamowienia() + ",'Z','false'," + Integer.parseInt(lines[1]) + ","
+									+ zamow.getIdZamowienia() + ",'KLIENT','false'," + Integer.parseInt(lines[1]) + ","
 									+ getId_klient() + "," + produkt.getId() + ")");
 					str = "Zamowiles " + produkt.getNazwa() + "  w ilosci: " + Integer.parseInt(lines[1])
-							+ "\nPozosta³o:" + produkt.getIlosc() + "\n";
+							+ ". ID twojego zamowienia to: "+ zamow.getIdZamowienia() +". Podaj je w kasie.\nPozosta³o:" + produkt.getIlosc() + "\n";
 					break;
+				}else if (produkt.getIlosc() <= Integer.parseInt(lines[1])) {
+					str = "Nie mamy wystarczajacej ilosci produktu w magazynie";
 				}
 			}
 			ConnectToDB.rozlacz();
@@ -166,7 +168,7 @@ public class Klient extends Uzytkownik {
 							+ ". Zamowienie zostalo zrealizowane\n";
 				} else {
 					zamowienia += "Zamowiles lek - " + pro.getNazwa() + " w ilosci: " + zam.getIlosc()
-							+ ". Zamowienie nie zostalo jeszcze zrealizowane\n";
+							+ ". Zamowienie nie zostalo jeszcze zrealizowane, ID twojego zamowienia to: " + zam.getIdZamowienia() + "\n";
 				}
 			}
 			ConnectToDB.rozlacz();

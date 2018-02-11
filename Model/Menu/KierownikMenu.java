@@ -19,6 +19,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JTextArea;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class KierownikMenu {
 
@@ -32,6 +34,8 @@ public class KierownikMenu {
 	private final Action action_6 = new SwingAction_6();
 	private JTextArea txtrImie;
 	private JPasswordField passwordField;
+	private JTextField textField;
+	private Kierownik kierownik = new Kierownik();
 
 	public KierownikMenu() {
 		initialize();
@@ -43,7 +47,7 @@ public class KierownikMenu {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
-		frame.setBounds(100, 100, 456, 274);
+		frame.setBounds(100, 100, 800, 410);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnZatrudnij = new JButton("Zatrudnij");
@@ -65,9 +69,6 @@ public class KierownikMenu {
 		JButton btnOproznijKase = new JButton("Oproznij Kase");
 		btnOproznijKase.setAction(action_5);
 		
-		JButton btnPodsumuj = new JButton("Podsumuj");
-		btnPodsumuj.setAction(action_6);
-		
 		JButton button = new JButton("GlowneMenu");
 		button.setAction(action);
 		
@@ -76,28 +77,39 @@ public class KierownikMenu {
 		
 		passwordField = new JPasswordField();
 		passwordField.setToolTipText("Haslo:");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		JLabel lblNazwaUzytkownika = new JLabel("Nazwa uzytkownika");
+		
+		JLabel lblHaslo = new JLabel("Haslo:");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnPodsumuj, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-								.addComponent(btnOproznijKase, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(btnUaktualnijdane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnZwolnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnZatrudnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnStowrzNoweZamowienie, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
-							.addGap(46)
-							.addComponent(txtrImie, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap(333, Short.MAX_VALUE)
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap(180, Short.MAX_VALUE)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnOproznijKase, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnUaktualnijdane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnStowrzNoweZamowienie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnZwolnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnZatrudnij, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(18)
+							.addComponent(txtrImie, GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNazwaUzytkownika)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(button, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(lblHaslo)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -111,18 +123,20 @@ public class KierownikMenu {
 							.addComponent(btnZwolnij)
 							.addGap(5)
 							.addComponent(btnStowrzNoweZamowienie)
-							.addGap(3)
+							.addGap(5)
 							.addComponent(btnUaktualnijdane)
-							.addGap(3)
-							.addComponent(btnOproznijKase)
-							.addGap(4)
-							.addComponent(btnPodsumuj))
-						.addComponent(txtrImie, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnOproznijKase))
+						.addComponent(txtrImie, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHaslo)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNazwaUzytkownika))
+					.addGap(37)
 					.addComponent(button)
-					.addContainerGap())
+					.addContainerGap(37, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		
@@ -143,13 +157,13 @@ public class KierownikMenu {
 		private Farmaceuta farm = new Farmaceuta();
 		public SwingAction_1() {
 			putValue(NAME, "Zatrudnij");
-			putValue(SHORT_DESCRIPTION, "Podaj wszystkie dane w odpowiedniej kolejnosci, Kolejnosc: Imie, Nazwisko, Nazwa, Wiek, Wynagrodzenie, Konto");
+			putValue(SHORT_DESCRIPTION, "Podaj wszystkie dane w odpowiedniej kolejnosci, Kolejnosc: Imie, Nazwisko, Wiek, Wynagrodzenie, Konto");
 		}
 		public void actionPerformed(ActionEvent e) {
 			String[] lines = txtrImie.getText().split("\n");
 			farm.setImie(lines[0]);
 			farm.setNazwisko(lines[1]);
-			farm.setNazwaU(lines[2]);
+			farm.setNazwaU(textField.getText());
 			farm.setHaslo(passwordField.getPassword());
 			farm.setWiek(Integer.parseInt(lines[3]));
 			try {
@@ -164,7 +178,7 @@ public class KierownikMenu {
 			try {
 				farm.dodajUzytkownikaDB();
 			} catch (Exception e1) {
-				System.out.println("Dodawanie farmaceuty do bazy danych");
+				System.out.println("Exception w dodawaniu farmaceuty do bazy danych");
 				e1.printStackTrace();
 			}
 		}
@@ -178,13 +192,19 @@ public class KierownikMenu {
 		}
 	}
 	private class SwingAction_3 extends AbstractAction {
-		
 		public SwingAction_3() {
 			putValue(NAME, "Zamow produkty");
 			putValue(SHORT_DESCRIPTION, "Tutaj zamowisz produkty do magazynu");
 		}
 		public void actionPerformed(ActionEvent e) {
-			
+			String[] lines = txtrImie.getText().split(" ");
+			try {
+				
+				txtrImie.setText(kierownik.zlozZamowienie(lines));
+			} catch (Exception e1) {
+				System.out.println("Exception w skladaniu zamowienia przez kierownika");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_4 extends AbstractAction {
@@ -196,7 +216,6 @@ public class KierownikMenu {
 		}
 	}
 	private class SwingAction_5 extends AbstractAction {
-		Kierownik kierownik = new Kierownik();
 		public SwingAction_5() {
 			putValue(NAME, "Oproznij kase");
 			putValue(SHORT_DESCRIPTION, "Some short description");

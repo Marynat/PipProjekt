@@ -51,7 +51,7 @@ public class KlientMenu {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
-		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 560, 395);
+		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 800, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblCoChceszZrobic = new JLabel("Co chcesz zrobic?");
@@ -104,9 +104,9 @@ public class KlientMenu {
 						.addComponent(txtPodajNazweLeku, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
 						.addComponent(txtTuWyswietliSi, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnWyczyscPole)
-							.addPreferredGap(ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-							.addComponent(btnNewButton)
+							.addComponent(btnWyczyscPole, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(162)
+							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
 							.addContainerGap())
 						.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)))
 		);

@@ -19,15 +19,17 @@ public class Zamowienie {
     /**
      * 
      */
-    public Integer idZamowienia = 0;
+    private Integer idZamowienia = 0;
     
-    public String stan;
+	private String stan;
     
-    public Integer ilosc;
+    private Integer ilosc;
     
-    public Integer idKlient;
+    private Integer idKlient;
     
-    public Integer idProdukt;
+    private Integer idProdukt;
+    
+    private String rodzaj;
 
 
     public Integer getIlosc() {
@@ -61,6 +63,15 @@ public class Zamowienie {
 	public void setStan(String stan) {
 		this.stan = stan;
 	}
+	
+	public String getRodzaj() {
+		return rodzaj;
+	}
+
+	public void setRodzaj(String rodzaj) {
+		this.rodzaj = rodzaj;
+	}
+
 
 	/**
      * @param produkty
@@ -80,7 +91,7 @@ public class Zamowienie {
 		return idZamowienia;
 	}
 
-	public void setIdZamowienia() throws Exception {
+	public void setCurrentId() throws Exception {
 		
 		Statement st = ConnectToDB.con.createStatement();
 		ResultSet rs2 = st.executeQuery("select * from zamowienie");

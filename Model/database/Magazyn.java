@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -28,7 +31,7 @@ public class Magazyn {
 		this.wolneMiejsca = wolneMiejsca;
 	}
 
-	public static Integer getIloscmiejsc() {
+	public Integer getIloscmiejsc() {
 		return iloscMiejsc;
 	}
 
@@ -41,23 +44,15 @@ public class Magazyn {
 
 	/**
 	 * @param nazwa
+	 * @throws Exception 
 	 */
-	public void dodajProdukt(Produkty nazwa) {
-		// TODO implement here
-	}
-
-	/**
-	 * @param nazwa
-	 */
-	public void usunProdukt(Produkty nazwa) {
-		// TODO implement here
-	}
-
-	/**
-	 * @param nazwa
-	 */
-	public void sprawdzIlosc(Produkty nazwa) {
-		// TODO implement here
+	public void sprawdzIlosc() throws Exception {
+		Statement st = ConnectToDB.con.createStatement();
+		ResultSet rs2 = st.executeQuery("select ilosc_wolnych_miejsc from magazyn where \"id_magazyn\" = 0");
+		while (rs2.next()) {
+			this.wolneMiejsca = rs2.getInt(1);
+			System.out.println(wolneMiejsca);
+		}
 	}
 
 }

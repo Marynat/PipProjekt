@@ -62,6 +62,7 @@ ALTER TABLE farmaceuta ADD CONSTRAINT farmaceuta_pk PRIMARY KEY ( id_farmaceuta 
 CREATE TABLE kasa (
     "id_kasa"          NUMBER(9) NOT NULL,
     pieniadze          NUMBER(9) NOT NULL,
+    stan               VARCHAR(10) NOT NULL,
     apteka_id_apteka   NUMBER(6) NOT NULL
 )
     LOGGING;
@@ -95,6 +96,7 @@ ALTER TABLE magazyn ADD CONSTRAINT magazyn_pk PRIMARY KEY ( "id_magazyn" );
 
 CREATE TABLE produkty (
     "id_produkty"        NUMBER(9) NOT NULL,
+    koszt                NUMBER(6,2) NOT NULL,
     nazwa                VARCHAR2(25) NOT NULL,
     dawka                VARCHAR2(25) NOT NULL,
     typ                  VARCHAR2(25) NOT NULL,
@@ -136,7 +138,7 @@ CREATE TABLE zamowienie (
     stan                   VARCHAR2(5),
     ilosc                  NUMBER(6) ,
     klient_id_klient       NUMBER(9) ,
-    produkty_id_produkty   NUMBER(9) NOT NULL
+    produkty_id_produkty   NUMBER(9) 
 )
     LOGGING;
 
