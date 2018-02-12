@@ -108,15 +108,14 @@ CREATE TABLE produkty (
 ALTER TABLE produkty ADD CONSTRAINT produkty_pk PRIMARY KEY ( "id_produkty" );
 
 CREATE TABLE rachunki (
-    "id_rachunki"   NUMBER(9) NOT NULL,
     seria           NUMBER(9) NOT NULL,
-    kwotarachunku   NUMBER(6),
+    kwotarachunku   NUMBER(9,2),
     data            DATE,
     kasa_id_kasa    NUMBER(9) NOT NULL
 )
     LOGGING;
 
-ALTER TABLE rachunki ADD CONSTRAINT rachunki_pk PRIMARY KEY ( "id_rachunki" );
+ALTER TABLE rachunki ADD CONSTRAINT seria_pk PRIMARY KEY ( seria );
 
 CREATE TABLE uzytkownik (
     id_uzytkownik      NUMBER(9) NOT NULL,
@@ -138,7 +137,7 @@ CREATE TABLE zamowienie (
     stan                   VARCHAR2(5),
     ilosc                  NUMBER(6) ,
     klient_id_klient       NUMBER(9) ,
-    produkty_id_produkty   NUMBER(9) 
+    produkty_id_produkty   NUMBER(9) NOT NULL
 )
     LOGGING;
 

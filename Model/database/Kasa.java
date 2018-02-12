@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -21,7 +24,7 @@ public class Kasa extends Apteka {
     /**
      * 
      */
-    protected Float pieniadze;
+    protected Double pieniadze;
 
     /**
      * 
@@ -53,25 +56,6 @@ public class Kasa extends Apteka {
         return data;
     }
 
-    /**
-     * @param kwotaOtrzymana 
-     * @param kwotaRachunku 
-     * @return
-     */
-    public void zaplac(Integer kwotaOtrzymana, Integer kwotaRachunku) {
-    	
-    	
-    }
-
-    /**
-     * @param Rachunki rachunek 
-     * @return
-     */
-    public Integer utworzRachunek(Rachunki rachunek) {
-        // TODO implement here
-        return null;
-    }
-
 	public Boolean getStanKasy() {
 		return stanKasy;
 	}
@@ -80,13 +64,23 @@ public class Kasa extends Apteka {
 		this.stanKasy = stanKasy;
 	}
 
-	public Float getPieniadze() {
+	public Double getPieniadze() {
 		return pieniadze;
 	}
 
-	public void setPieniadze(Float pieniadze) {
-		this.pieniadze = pieniadze;
+	public void setPieniadze(Double double1) {
+		this.pieniadze = double1;
 	}
+	
+	public void dodajPieniadze(Double double1) {
+		this.pieniadze += double1;
+	}
+	
+	public void odejmijPieniadze(Double double1) {
+		this.pieniadze -= double1;
+	}
+	
+	
 
 	public Date getData() {
 		return data;
@@ -94,6 +88,14 @@ public class Kasa extends Apteka {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public void setCurrentPieniadze() throws Exception {
+		Statement st = ConnectToDB.con.createStatement();
+		ResultSet rs2 = st.executeQuery("select pieniadze from kasa");
+		while (rs2.next()) {
+			this.pieniadze = rs2.getDouble(1);
+		}
 	}
     
 }

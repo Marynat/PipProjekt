@@ -16,6 +16,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import javax.swing.JTextArea;
+import javax.swing.JLabel;
 
 public class FarmaceutaMenu {
 
@@ -26,7 +27,7 @@ public class FarmaceutaMenu {
 	private JTextArea textArea;
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
-
+	private JLabel lblPomoc;
 	/**
 	 * Create the application.
 	 */
@@ -56,21 +57,25 @@ public class FarmaceutaMenu {
 		
 		JButton btnOtworzzamknijKase = new JButton("Otworz / Zamknij kase");
 		btnOtworzzamknijKase.setAction(action_3);
+		
+		lblPomoc = new JLabel("Pomoc:");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap(677, Short.MAX_VALUE)
+							.addComponent(button, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnOtworzzamknijKase, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnSprzedaj, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap(677, Short.MAX_VALUE)
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPomoc)
+								.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -85,7 +90,9 @@ public class FarmaceutaMenu {
 							.addGap(9)
 							.addComponent(btnOtworzzamknijKase))
 						.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblPomoc)
+					.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
 					.addComponent(button)
 					.addContainerGap())
 		);
@@ -97,10 +104,16 @@ public class FarmaceutaMenu {
 		
 		public SwingAction() {
 			putValue(NAME, "Obsluga zamowien");
-			putValue(SHORT_DESCRIPTION, "Aby");
+			putValue(SHORT_DESCRIPTION, "Podaj id zamowienia do obslugi");
 		}
 		public void actionPerformed(ActionEvent e) {
-			
+			Integer zId = Integer.parseInt(textArea.getText());
+			try {
+				textArea.setText(far.obsluzZamowienie(zId));
+			} catch (Exception e1) {
+				System.out.println("Exception w w oblsudze zamowien");
+				e1.printStackTrace();
+			}
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {

@@ -1,5 +1,6 @@
 package database;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -126,8 +127,8 @@ public class Farmaceuta extends Uzytkownik {
 		while (rs.next()) {
 			if (rs.getString(2).equals("OTWARTA")) {
 				rs2 = st.executeQuery("update kasa set stan = 'ZAMKNIETA' where \"id_kasa\" = 0");
-				s = "Kasa zostala zamknieta";		
-			}else {
+				s = "Kasa zostala zamknieta";
+			} else {
 				rs2 = st.executeQuery("update kasa set stan = 'OTWARTA' where \"id_kasa\" = 0");
 				s = "Kasa zostala otwarta";
 			}
@@ -136,7 +137,67 @@ public class Farmaceuta extends Uzytkownik {
 		return s;
 	}
 
-	public void obsluzZamowienie() {
-		
+	public String obsluzZamowienie(Integer zId) throws Exception {
+		Zamowienie zamowienie = new Zamowienie();
+		Rachunki ra = new Rachunki();
+		String s = "";
+		ConnectToDB.polacz();
+		Date date = new Date();
+		long t = date.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(t);
+		java.sql.Time sqlTime = new java.sql.Time(t);
+		st = ConnectToDB.con.createStatement();
+		zamowienie.setId(zId);
+		ra.setCurrentId();
+		ra.setCurrentPieniadze();
+		rs = st.executeQuery("Select * from zamowienie where id_zamowienia =" + zId);
+		ResultSet rs2;
+		while (rs.next()) {
+			zamowienie.setRodzaj(rs.getString(2));
+			zamowienie.setStan(rs.getString(3));
+			zamowienie.setIlosc(rs.getInt(4));
+			zamowienie.setIdProdukt(rs.getInt(6));
+			if (zamowienie.getStan().equals("false")) {
+				if (zamowienie.getRodzaj().equals("KLIENT")) {
+					zamowienie.setIdKlient(rs.getInt(5));
+					rs2 = st.executeQuery(
+							"Select koszt from produkty where \"id_produkty\" = " + zamowienie.getIdProdukt());
+					while (rs2.next()) {
+						ra.setKwotaRachunku(rs2.getDouble(1) * zamowienie.getIlosc());
+						ra.dodajPieniadze(ra.getKwotaRachunku());
+					}
+					System.out.println("insert into rachunki(seria, kwotarachunku, data, kasa_id_kasa) values("
+							+ ra.getSeria() + "," + ra.getKwotaRachunku() + ",TO_DATE('" + sqlDate + " " + sqlTime
+							+ "','YYYY-MM-DD HH24:MI:SS'),0)");
+					rs2 = st.executeQuery("insert into rachunki(seria, kwotarachunku, data, kasa_id_kasa) values("
+							+ ra.getSeria() + "," + ra.getKwotaRachunku() + ",TO_DATE('" + sqlDate + " " + sqlTime
+							+ "','YYYY-MM-DD HH24:MI:SS'),0)");
+					rs2 = st.executeQuery("update zamowienie set stan = 'true' where id_zamowienia =" + zId);
+					rs2 = st.executeQuery("update kasa set pieniadze = " + ra.getPieniadze());
+					s = "Zamowienie o numerze:" + zId + " na kwote: "+ ra.getKwotaRachunku() +" zostalo obzluzone";
+				} else {
+					rs2 = st.executeQuery(
+							"Select koszt from produkty where \"id_produkty\" = " + zamowienie.getIdProdukt());
+					while (rs2.next()) {
+						ra.setKwotaRachunku(rs2.getDouble(1) * zamowienie.getIlosc());
+						if (ra.getPieniadze() > ra.getKwotaRachunku()) {
+							ra.odejmijPieniadze(ra.getKwotaRachunku());
+						} else
+							s = "Za malo pieniedzy w kasie na wykonanie tego zamowienia";
+							return s;
+					}
+					rs2 = st.executeQuery("insert into rachunki(seria, kwotarachunku, data, kasa_id_kasa) values("
+							+ ra.getSeria() + "," + ra.getKwotaRachunku() + ",TO_DATE('" + sqlDate + " " + sqlTime
+							+ "','YYYY-MM-DD HH24:MI:SS'),0)");
+					rs2 = st.executeQuery("update zamowienie set stan = 'true' where id_zamowienia =" + zId);
+					rs2 = st.executeQuery("update produkty set ilosc = " + zamowienie.getIlosc()
+							+ "where \"id_produkty\" = " + zamowienie.getIdProdukt());
+					rs2 = st.executeQuery("update kasa set pieniadze = " + ra.getPieniadze());
+					s = "Zamowienie o numerze:" + zId + " na kwote: "+ ra.getKwotaRachunku() +" zostalo obzluzone";
+				}
+			}
+		}
+		ConnectToDB.rozlacz();
+		return s;
 	}
 }

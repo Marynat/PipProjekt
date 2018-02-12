@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -16,22 +19,32 @@ public class Rachunki extends Kasa {
     /**
      * 
      */
-    public Integer seria;
+    public Integer seria = 0;
     
-    public Integer kwotaRachunku;
+    public Double kwotaRachunku;
 
-    /**
-     * @param Produkty produkt
-     */
-    public void dodajLekDoRachunku(Produkty produkt) {
-        // TODO implement here
-    }
+    public Integer getSeria() {
+		return seria;
+	}
 
-    /**
-     * @param Produkty produkt
-     */
-    public void usunLekZRachunku(Produkty produkt) {
-        // TODO implement here
+	public void setSeria(Integer seria) {
+		this.seria = seria;
+	}
+
+	public Double getKwotaRachunku() {
+		return kwotaRachunku;
+	}
+
+	public void setKwotaRachunku(Double kwotaRachunku) {
+		this.kwotaRachunku = kwotaRachunku;
+	}
+
+	public void setCurrentId() throws Exception {
+    	Statement st = ConnectToDB.con.createStatement();
+		ResultSet rs2 = st.executeQuery("select seria from rachunki");
+		while (rs2.next()) {
+			this.seria++;
+		}
     }
 
 }

@@ -36,7 +36,7 @@ public class Kierownik extends Uzytkownik {
 		if (kasa.getStanKasy()) {
 			ResultSet rs = st.executeQuery("insert into dzien");
 			kasa.getPieniadze();
-			kasa.setPieniadze(0.0f);
+			kasa.setPieniadze(0.0);
 		}
 
 		ConnectToDB.rozlacz();
@@ -107,11 +107,11 @@ public class Kierownik extends Uzytkownik {
 		} if (mag.getWolneMiejsca() >= Integer.parseInt(lines[1]) && !canI) {
 			produkt.setCurrentId();
 			zamow.setCurrentId();
-			System.out.println("insert into produkty(\"id_produkty\",koszt,nazwa,dawka,typ,ilosc,MAGAZYN_ID_MAGAZYN) values(" + produkt.getId() + "," + Double.parseDouble(lines[2]) + ",'" + lines[0]+ "','" + lines[3] + "','" + lines[4] + "'," + Integer.parseInt(lines[1]) + ",0)");
+			System.out.println("insert into produkty(\"id_produkty\",koszt,nazwa,dawka,typ,ilosc,MAGAZYN_ID_MAGAZYN) values(" + produkt.getId() + "," + Double.parseDouble(lines[2]) + ",'" + lines[0]+ "','" + lines[3] + "','" + lines[4] + "',0,0)");
 			System.out.println("insert into zamowienie(id_zamowienia,rodzaj,stan,ilosc,klient_id_klient,produkty_id_produkty) values("
 					+ zamow.getIdZamowienia() + ",'SKLEP','false'," + Integer.parseInt(lines[1]) + ", NULL ,"
 					+ produkt.getId() + ")"); 
-			ResultSet rs3 = st.executeQuery("insert into produkty(\"id_produkty\",koszt,nazwa,dawka,typ,ilosc,MAGAZYN_ID_MAGAZYN) values(" + produkt.getId() + "," + Double.parseDouble(lines[2]) + ",'" + lines[0]+ "','" + lines[3] + "','" + lines[4] + "'," + Integer.parseInt(lines[1]) + ",0)"); 
+			ResultSet rs3 = st.executeQuery("insert into produkty(\"id_produkty\",koszt,nazwa,dawka,typ,ilosc,MAGAZYN_ID_MAGAZYN) values(" + produkt.getId() + "," + Double.parseDouble(lines[2]) + ",'" + lines[0]+ "','" + lines[3] + "','" + lines[4] + "',0,0)"); 
 			rs3 = st.executeQuery("insert into zamowienie(id_zamowienia,rodzaj,stan,ilosc,klient_id_klient,produkty_id_produkty) values("
 					+ zamow.getIdZamowienia() + ",'SKLEP','false'," + Integer.parseInt(lines[1]) + ", NULL ,"
 					+ produkt.getId() + ")");
