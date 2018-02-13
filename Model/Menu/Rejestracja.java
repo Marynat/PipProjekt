@@ -15,6 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javax.swing.Action;
 
 public class Rejestracja {
@@ -142,6 +145,8 @@ public class Rejestracja {
 	}
 	private class SwingAction extends AbstractAction {
 		private Klient klient = new Klient();
+		public Statement st;
+		public ResultSet rs;
 		public SwingAction() {
 			putValue(NAME, "Zarejestruj");
 			putValue(SHORT_DESCRIPTION, "Przesyla dane do bazy i umozliwia zalogowanie");
@@ -156,7 +161,14 @@ public class Rejestracja {
 			klient.setId_klient(0);
 			klient.setId(0);
 			try {
+				ConnectToDB.polacz();
+				st = ConnectToDB.con.createStatement();
+				rs = st.executeQuery("Select nazwau from uzytkownik where nazwau = '" + klient.getNazwaU() + "'");
+				if(!rs.next()) {
 				klient.dodajUzytkownikaDB();
+				}else {
+					System.out.println("Ta nazwa uzytkownika jest juz zajeta, wybierz inna");
+				}
 			} catch (Exception e1) {
 				System.out.println("Adding klient to database Exception");
 				e1.printStackTrace();

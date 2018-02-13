@@ -174,7 +174,7 @@ public class Farmaceuta extends Uzytkownik {
 							+ "','YYYY-MM-DD HH24:MI:SS'),0)");
 					rs2 = st.executeQuery("update zamowienie set stan = 'true' where id_zamowienia =" + zId);
 					rs2 = st.executeQuery("update kasa set pieniadze = " + ra.getPieniadze());
-					s = "Zamowienie o numerze:" + zId + " na kwote: "+ ra.getKwotaRachunku() +" zostalo obzluzone";
+					s = "Zamowienie o numerze:" + zId + " na kwote: " + ra.getKwotaRachunku() + " zostalo obsluzone";
 				} else {
 					rs2 = st.executeQuery(
 							"Select koszt from produkty where \"id_produkty\" = " + zamowienie.getIdProdukt());
@@ -182,9 +182,10 @@ public class Farmaceuta extends Uzytkownik {
 						ra.setKwotaRachunku(rs2.getDouble(1) * zamowienie.getIlosc());
 						if (ra.getPieniadze() > ra.getKwotaRachunku()) {
 							ra.odejmijPieniadze(ra.getKwotaRachunku());
-						} else
+						} else {
 							s = "Za malo pieniedzy w kasie na wykonanie tego zamowienia";
 							return s;
+						}
 					}
 					rs2 = st.executeQuery("insert into rachunki(seria, kwotarachunku, data, kasa_id_kasa) values("
 							+ ra.getSeria() + "," + ra.getKwotaRachunku() + ",TO_DATE('" + sqlDate + " " + sqlTime
@@ -193,7 +194,7 @@ public class Farmaceuta extends Uzytkownik {
 					rs2 = st.executeQuery("update produkty set ilosc = " + zamowienie.getIlosc()
 							+ "where \"id_produkty\" = " + zamowienie.getIdProdukt());
 					rs2 = st.executeQuery("update kasa set pieniadze = " + ra.getPieniadze());
-					s = "Zamowienie o numerze:" + zId + " na kwote: "+ ra.getKwotaRachunku() +" zostalo obzluzone";
+					s = "Zamowienie o numerze:" + zId + " na kwote: " + ra.getKwotaRachunku() + " zostalo obsluzone";
 				}
 			}
 		}

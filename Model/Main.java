@@ -1,7 +1,6 @@
 import java.sql.SQLException;
 
 import Menu.GlowneMenu;
-import Menu.KierownikMenu;
 import database.ConnectToDB;
 
 public class Main extends GlowneMenu{

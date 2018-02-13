@@ -1,28 +1,26 @@
 package Menu;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import database.ConnectToDB;
-import database.Klient;
-import database.Typ;
-import database.Uzytkownik;
-
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Arrays;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Wzorce.MenuFactory;
+import Wzorce.UserMapper;
+import database.ConnectToDB;
+import database.Typ;
+import database.Uzytkownik;
 
 public class Logowanie {
 
@@ -33,7 +31,7 @@ public class Logowanie {
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
-	public final Uzytkownik user = new Uzytkownik();
+	public Uzytkownik user = new Uzytkownik();
 
 	public Logowanie() {
 		initialize();
@@ -72,63 +70,42 @@ public class Logowanie {
 		JButton btnGlowneMenu = new JButton("Glowne menu");
 		btnGlowneMenu.setAction(action_3);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup().addGap(162).addComponent(lblProszSiZalogowa))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(162)
-							.addComponent(lblProszSiZalogowa))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPodajNazweUzytkownika)
-								.addComponent(lblPodajHaslo))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
-					.addGap(171))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(btnZaloguj)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(btnZapomnialemHaso)
-					.addGap(103)
-					.addComponent(btnGlowneMenu)
-					.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-					.addComponent(btnNiePosiadamKonta))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(lblProszSiZalogowa)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPodajNazweUzytkownika)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPodajHaslo)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnZaloguj)
-					.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnZapomnialemHaso)
-						.addComponent(btnGlowneMenu)
-						.addComponent(btnNiePosiadamKonta)))
-		);
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPodajNazweUzytkownika).addComponent(lblPodajHaslo))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
+				.addGap(171)).addGroup(groupLayout.createSequentialGroup().addComponent(btnZaloguj).addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup().addComponent(btnZapomnialemHaso).addGap(103)
+						.addComponent(btnGlowneMenu).addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+						.addComponent(btnNiePosiadamKonta)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addComponent(lblProszSiZalogowa).addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPodajNazweUzytkownika)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPodajHaslo).addComponent(
+						passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnZaloguj)
+				.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnZapomnialemHaso)
+						.addComponent(btnGlowneMenu).addComponent(btnNiePosiadamKonta))));
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}
 
 	private class SwingAction extends AbstractAction {
 		private String login;
-		private char[] haslo;
 		private Typ typ;
 		private char[] input;
-
-		
 
 		public SwingAction() {
 			putValue(NAME, "Zaloguj");
@@ -140,37 +117,25 @@ public class Logowanie {
 				ConnectToDB.polacz();
 
 				Statement st = ConnectToDB.con.createStatement();
-				ResultSet rs = st.executeQuery("Select nazwau, haslo, typ, imie, nazwisko from uzytkownik");
-				while (rs.next()) {
-					user.setNazwaU(rs.getString(1));
-					user.setHaslo(rs.getString(2).toCharArray());
-					user.setTyp(Typ.valueOf(rs.getString(3)));
-					user.setImie(rs.getString(4));
-					user.setNazwisko(rs.getString(5));
-					login = user.getNazwaU();
-					typ = user.getTyp();
-					input = passwordField.getPassword();
-					String haslo = new String(input);
-					System.out.println(login + " " + haslo + " " + typ);
-					if (login.equals(textField.getText()) && isPasswordCorrect(input)) {
-						switch (typ) {
-						case KIEROWNIK:
-							frame.dispose();
-							KierownikMenu kierWindow = new KierownikMenu();
-							break;
-						case FARMACEUTA:
-							frame.dispose();
-							FarmaceutaMenu farWindow = new FarmaceutaMenu();
-							break;
-						case KLIENT:
-							frame.dispose();
-							KlientMenu kliWindow = new KlientMenu();
-						default:
-							frame.dispose();
-						}
-						break;
-					}
+				ResultSet rs = st.executeQuery(
+						"Select id_uzytkownik, nazwau, haslo, typ, imie, nazwisko from uzytkownik where nazwau = '"
+								+ textField.getText() + "'");
+				user = UserMapper.map(rs);
+				if (user == null) {
+					System.out.println("UWAGA! Bledny login !");
+					return;
 				}
+
+				login = user.getNazwaU();
+				typ = user.getTyp();
+				input = passwordField.getPassword();
+
+				if (login.equals(textField.getText()) && isPasswordCorrect(input)) {
+					frame.dispose();
+					Menu menu = MenuFactory.createMenu(typ, user);
+					menu.initialize();
+				}
+
 				ConnectToDB.rozlacz();
 			} catch (Exception e1) {
 				System.out.println("checking user from database Exception");

@@ -1,4 +1,4 @@
---insert into apteka(ADRES, ID_APTEKA,NAZWA,TELEFON) values ('Kielce ul.Mickiewicza 82',0,'Apteka MM', '934748725');
+--felinsert into apteka(ADRES, ID_APTEKA,NAZWA,TELEFON) values ('Kielce ul.Mickiewicza 82',0,'Apteka MM', '934748725');
 --Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ,APTEKA_ID_APTEKA) values(0,'felo','melo','Marcin',64,'Kowalski','KIEROWNIK', 0);
 --Insert into uzytkownik(id_uzytkownik,nazwau,haslo,imie,wiek,nazwisko,typ,APTEKA_ID_APTEKA) values(1,'mol','fol','Krystyna',34,'Nowak','FARMACEUTA',0);
 --insert into farmaceuta(id_farmaceuta,wynagrodzenie,konto_bankowe,uzytkownik_id_uzytkownik) values (0,2000,'4324324',1);

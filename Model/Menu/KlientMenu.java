@@ -1,33 +1,25 @@
 package Menu;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-import javax.swing.JFrame;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import database.ConnectToDB;
 import database.Klient;
 import database.Produkty;
-import database.Typ;
 
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import javax.swing.Action;
-import javax.swing.JTextField;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-
-import java.awt.Scrollbar;
-import java.awt.event.ActionListener;
-
-public class KlientMenu {
+public class KlientMenu extends Menu {
 
 	private JFrame frame;
 	private final Action action = new SwingAction();
@@ -41,14 +33,12 @@ public class KlientMenu {
 	private final Action action_5 = new SwingAction_5();
 
 
-	public KlientMenu() {
-		initialize();
-	}
+
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frame = new JFrame();
 		frame.setTitle(GlowneMenu.title);
 		frame.setBounds(GlowneMenu.center.x - GlowneMenu.screenSize.width/4 , GlowneMenu.center.y - GlowneMenu.screenSize.height/4, 800, 400);
